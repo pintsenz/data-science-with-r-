@@ -1,0 +1,23 @@
+---
+title: "Ch1 data visualization with ggplot2"
+output: html_document
+date: "2023-04-24"
+---
+
+
+Import \> tidy \> transform, visualize, model \> communicate
+
+-   ggplot2 \> implements the grammar of graphics, building graph
+
+```{bash}
+library(tidyverse)
+```
+
+**First step**
+- do cars with big engines use more fuel than cars with small engines?
+(what does the relationship between engine size and fuel efficiency look)
+
+```{r}
+ggplot2::mpg
+```
+
