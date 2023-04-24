@@ -3,5 +3,10 @@ title: "preface"
 output: html_document
 date: "2023-04-24"
 ---
+What you type after > is called a prompt
 
-hi hi 
+Functions are in a code font and followed by ()
+
+Other R objects are in a code font without () - like data or function arguments
+
+For packages in the tidyverse, the easiest way to check is to run tidyverse_update()
