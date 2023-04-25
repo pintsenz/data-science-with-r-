@@ -21,3 +21,48 @@ library(tidyverse)
 ggplot2::mpg
 ```
 
+- displ > car engine size in liters 
+- hwy > car fuel efficiency on highway in mpg
+
+You can add 
+```{r}
+?mpg
+```
+
+to open help page to get more info
+
+**Creating pplot**
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+The plot above shows a negative relationship between the size(displ)and fuel efficiency(hwy)
+> therefore, cars with big engines use more fuel 
+
+*how to begin a ggplot2*
+- ggplot() will create a coordinate system to add layers too 
+- ggplot(data=) will create an empty plot, also the first argument for the plot 
+- geom_point() is a function that adds a layer of points to the plot, this is a scatterplot
+- geom will take mappings argument that will define how variables are mapped to visual properties 
+- geom is always paired with aes() that tells which variables to map to x and y axis
+
+**graphing template**
+
+```{r}
+ggplot(data = <DATA>) +
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+**exercise**
+
+plot hwy against cly 
+```{r}
+ggplot(data=mpg)+ geom_point(mapping = aes(x=hwy, y=cyl))
+```
+
+- use ?mpg to find out what variable means what
+
+**aesthetic mapping**
+
