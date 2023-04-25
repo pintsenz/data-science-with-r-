@@ -1,0 +1,22 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Import \> tidy \> transform, visualize, model \> communicate
+
+-   ggplot2 \> implements the grammar of graphics, building graph
+
+```{bash}
+library(tidyverse)
+```
+
+**First step**
+- do cars with big engines use more fuel than cars with small engines?
+(what does the relationship between engine size and fuel efficiency look)
+
+```{r}
+ggplot2::mpg
+```
+
+- disp
