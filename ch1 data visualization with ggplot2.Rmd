@@ -66,3 +66,42 @@ ggplot(data=mpg)+ geom_point(mapping = aes(x=hwy, y=cyl))
 
 **aesthetic mapping**
 
+https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781491910382/files/assets/rfds_01in02.png
+- one group of points are outliers 
+- we can test if the cars are hybrids. look at class value for each car. we can add a third value by mapping to an aesthetic
+
+- an *aesthetic* is a visual property that includes, size, shape, or color 
+
+- we can use level to describe aesthetic properties 
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+
+```
+
+- we can map the colors of the class variables 
+- *aesthetic to aes()* 
+- ggplot2 will assign a level of aesthetic to each value > scaling 
+
+- we can map class to size as well
+- or we can map class to *alpha* aesthetic that controls transparency of the points
+
+```{r}
+Top
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+
+# Bottom
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+- ggplot2 only use 6 shapes at a time so any additional groups will go unplotted using this aesthetic
+
+- you can set aesthetic properties of geom, ie, making all points blue 
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+- this will go outside of aes()
