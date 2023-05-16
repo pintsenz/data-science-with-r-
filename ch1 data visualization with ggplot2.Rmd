@@ -105,3 +105,23 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
 ```
 - this will go outside of aes()
+
+**exercise**
+
+1) what is wrong with this code and why are the points not blue?
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+```
+
+- the ) should go after y input and not after the color input so it should be 
+```{r}
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y=hwy), color= "blue")
+```
+
+- color= blue shuld not be inlcuded within the mapping argument
+
+
+2) which variable in mpg are categorical which are continuous?
+
+- type ?mpg
