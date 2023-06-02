@@ -119,9 +119,65 @@ ggplot(data = mpg) +
 ggplot(data=mpg)+geom_point(mapping=aes(x=displ, y=hwy), color= "blue")
 ```
 
-- color= blue shuld not be inlcuded within the mapping argument
+- color= blue should not be inlcuded within the mapping argument
 
 
 2) which variable in mpg are categorical which are continuous?
 
 - type ?mpg
+- those with <chr> are categorical and those with <dbl> or <int> are continuous 
+
+3) map a continuous variable to color, size and shape how do they differ? 
+
+-continuous variable when mapped using color : will scale from light to dark color that varies 
+-size of the points will depends on function of their size 
+-shape will give an error, numbers have orders but shapes do not 
+4) what happens when you map the same variable to many different aes?
+
+- it is reduent most of the time so we usually will avoid it 
+
+5) what does stoke aes do? what shapes does it work with
+
+- stroke changes thr size of the border for shapes 
+
+
+**common problems**
+
+-if left hand side of the console gives + then R doesnt think you typed a complete expression
+- when creating ggplot2 make sure the + comes at the end and dont start a line with it 
+
+**facets**
+
+-you can split plots into facets, subplots for each display 
+- use facet_wrap() to plot by single variable
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ, y=hwy))+
+  facet_wrap(~class, nrow=2)
+```
+
+-use ~ followed by variable names 
+
+-to facet plot on two varibles add facet_grid() to your plot, it is also a formula that will contain two variable names separated by ~
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ, y=hwy))+
+  facet_grid(drv~cyl)
+```
+
+**exercise**
+
+1) when you facet continuous var it will be converted to categorical var and the plot contains a facet for each value
+
+2) empty plots in facet means that there are no observations there 
+
+3) by using . it ignores the dimension when faceting. so it can ignore x or y input 
+
+4) nrow and ncol are used when using facet_wrap() to layout the facets but its not nesscarry when it is for grid
+-use ?facet_wrap to see more 
+
+**geometric objects**
+-if plots used different visual object then we say they are different geoms 
+-geoms; geometrical object that a plot uses to represent data 
+-every geom takes a mapping argument but not every aes works with every geom 
+-there are extensions and cheatsheets
