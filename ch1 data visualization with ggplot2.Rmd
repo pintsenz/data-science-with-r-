@@ -181,3 +181,29 @@ ggplot(data=mpg)+
 -geoms; geometrical object that a plot uses to represent data 
 -every geom takes a mapping argument but not every aes works with every geom 
 -there are extensions and cheatsheets
+- geom_smooth uses a single geometric object to display rows of data 
+-you can add multiple geoms to the same plot 
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ, y=hwy))+
+  geom_smooth(mapping=aes(x=displ, y=hwy))
+```
+-but this will introduce some duplication to the code but we can fix that by passing a set of mapping to ggplot 
+```{r}
+ggplot(data=mpg,mapping=aes(x=displ, y=hwy))+
+  geom_point()+
+  geom_smooth()
+```
+- you can display different aes in different layers 
+```{r}
+ggplot(data=mpg, mapping=aes(x=displ, y=hwy))+
+  geom_point(mapping=aes(color=class))+
+  geom_smooth()
+```
+**exercies**
+1)line chart: geom_line 
+boxplot: geom_boxplot()
+histogram: geom_histogram()
+area chart: geom_area()
+
+2)
