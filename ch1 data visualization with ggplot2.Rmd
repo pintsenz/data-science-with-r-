@@ -1,5 +1,5 @@
 ---
-title: "Ch1 data visualization with ggplot2"
+title: "Ch3 data visualization with ggplot2"
 output: html_document
 date: "2023-04-24"
 ---
@@ -206,4 +206,63 @@ boxplot: geom_boxplot()
 histogram: geom_histogram()
 area chart: geom_area()
 
-2)
+2) show.legend=FALSE will hide the legend box. you can remove it or show.legend=TRUE to display it
+
+4) se added to arguments like geom_smooth will add standard error bands to the lines. by default without se=TRUE it will still be displayed 
+
+**statistical transformations**
+
+-geom_bar for bar chart
+```{r}
+ggplot(data=diamonds)+
+  stat_count(mapping=aes(x=cut))
+```
+-every geom has a default stat and every stat has a default geom
+-you can typically use geoms without statisical transformations 
+-you might need to use stat when:
+
+1)you want to override the default stat 
+2)you want to override default mapping from transformed variables to aes, ie, display bar chart of proportion rather than count 
+3) you want to draw greater attention to stat transformation in code
+-stat_(summary) will summarize the y value for each x value
+```{r}
+ggplot(data=diamonds)+
+  stat_summary(
+    mapping=aes(x=cut, y=depth),
+    fun.min=min,
+    fun.max=max,
+    fun=median
+  )
+```
+= ?stat_bin got list of stats 
+
+**exercise**
+1)the default geom for stat_summary() is geom_pointrange(). the geom_pointrange() default stat is identity()
+- we can add stat="summary" to use stat_summary() instead of stat_identity()
+```{r}
+ggplot(data=diamonds)+
+  geom_pointrange(
+    mapping=aes(x=cut, y=depth),
+    stat="summary"
+  )
+```
+-we need to specify values for fun.min, fun.max and fun
+```{r}
+ggplot(data=diamonds)+
+  geom_pointrange(
+    mapping=aes(x= cut, y=depth),
+    stat="summary",
+    fun.min=min,
+    fun.max=max,
+    fun=median
+    
+  )
+```
+2)geom_col() has a different default stat than geom_bar() and the default is stat_identity() that will leave the data as is.
+geom_bar() default stat is stat_count() and only expects an x variable 
+4)stat_smooth()
+y= predicted value
+ymin=lower value of the confidence interval
+ymax= higher value of the confidence interval
+se= standard error 
+5) if group=a is not included then all the bars in the plot will have the same height. geom_bar() assumes that groups are equal to x 
