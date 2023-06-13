@@ -266,3 +266,80 @@ ymin=lower value of the confidence interval
 ymax= higher value of the confidence interval
 se= standard error 
 5) if group=a is not included then all the bars in the plot will have the same height. geom_bar() assumes that groups are equal to x 
+
+**3.8 position adjustments**
+- you can color a bar chart using color aes or fill 
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, colour = cut))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+- mapping fill aes to antoher variable like clarity the bars are stacked and each color represents a combo of cut and clarity
+- stacking is performed by position adjustment specified by the position argument
+-if you dont want to stack bar chart then use identity, dodge or fill 
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar(alpha = 1/5, position = "identity")
+ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
+  geom_bar(fill = NA, position = "identity")
+```
+-identity will place each object exactly where it falls in context of the graph
+-alpha will make the graph transparent if you use fill=NA it will make it completely transparent 
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+```
+- fill for position works like stacking but makes each set of stacked bars the same height
+-easier to compare proportions across groups 
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+```
+-dodge will place overlapping objects beside one another that makes it easier to compare individual values 
+
+- overplotting can be an issue where not all the points show on graph 
+-can be avoided position="jitter" that will add small noise to each point that will spread the point out 
+-makes it less accurate at small scales but more revealing for large scales 
+- geom_jitter()
+
+**exercise**
+2) width and height arguments for jitter parameters 
+3) geom_jitter adds random variation to the locations points of the graph that reduces overlapping since two points are unlikely to have the same random variation 
+-geom_count sizes the points relative to the number of observations, it will not change the coordinates of the points but can create overplotting 
+4)default position for geom_plot is "dodge2" that is a shortcut for "position_dodge2"
+-moves the geom horizontally to avoid overlapping other geoms 
+
+**3.9 coordinate systems**
+-the default is cartesian 
+-coord_flip() switches x and y useful if you want horizontal boxes
+-coord_quickmap() sets the aspect ratio correctly for maps, important if plotting spatial data 
+-coord_polar() uses polar coord that reveal connection between bar chart and coxcomb chart
+
+**excercies**
+1)turn a stacked bar chart into a pie chart using coord__polar()
+- pie chart is a stacked bar chart with polar coord
+```{r}
+ggplot(mpg, aes(x=factor(1), fill=drv))+
+  geom_bar()
+```
+```{r}
+ggplot(mpg, aes(x=factor(1),fill=drv))+
+  geom_bar(width=1)+
+  coord_polar(theta="y")
+```
+-adding theta="y" will create the pie chart taht maps y to the angle of each section
+```{r}
+ggplot(mpg, aes(x=factor(1),fill=drv))+
+  geom_bar(width=1)+
+  coord_polar()
+```
+-without theta it will create a bullseye chart 
+2)labs() function adds axis titles, plot titles, and a caption.the argument are optional so you can add as many or few
+3) coord_map() uses map projections to project 3d into 2d, mercator projection that applies to all geoms in the plot
+- coord_quickmap() project faster, coord of geoms dont need to be transformed 
+4) coord_fixed() ensures that the line produced by geom_abline() is at a 45 degree angle 
