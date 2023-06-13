@@ -343,3 +343,17 @@ ggplot(mpg, aes(x=factor(1),fill=drv))+
 3) coord_map() uses map projections to project 3d into 2d, mercator projection that applies to all geoms in the plot
 - coord_quickmap() project faster, coord of geoms dont need to be transformed 
 4) coord_fixed() ensures that the line produced by geom_abline() is at a 45 degree angle 
+
+**3.10 layered grammar of graphics**
+
+```{r}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
