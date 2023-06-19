@@ -1,0 +1,50 @@
+---
+title: "ch4 workflow basics"
+output: html_document
+date: "2023-06-13"
+---
+
+**4.1 coding basics**
+- you can use r as a calcultor 
+```{r}
+
+1/200*30
+2*20
+```
+```{r}
+x<- 3*4
+```
+- use <- to create new objects  
+- all r statments where you create objects, assignment statements have the same form : objectname <- value 
+- object name gets value 
+- alt - for shortcut
+
+**4.2 whats in a name?**
+-object names must start with a letter and can only contain letters, numbers _ and ..
+- be descriptive 
+```{r}
+this_is_a_really_long_name <- 2.5
+```
+```{r}
+r_rocks <- 2^3
+this_is_a_really_long_name
+#>
+```
+- type the name and # to get the value 
+
+
+**4.3 calling functions**
+```{r}
+seq(1,10)
+#>
+y <- seq(1,10, length.out=5)
+y
+#>
+
+```
+
+-seq() will makes regular sequences of numbers
+-you can see all the objects created in environment tab 
+
+**4.4 excercises**
+2)alt shift k for shortcut menu
