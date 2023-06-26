@@ -4,3 +4,86 @@ output: html_document
 date: "2023-06-19"
 ---
 
+**5.1 intro**
+- focus on how to use dplyr package 
+- the flights data prints different because of tibble
+- tibbles are data frames but tweaked to work better in tidyverse 
+- varibles types : int, dbl, chr, dtt, lgl, fctr, date
+```{r}
+flights
+```
+
+
+*dplyr basics*
+-pick observations by value filter()
+-reorder the rows arrange()
+-pick variables by name selec()
+-create new variables with functions of existing variables mutate()
+-collapse values down to single summary summaries()
+
+1) first argument is a data frame 
+2) subsequent arguemnts describes what to do with the data frames using the variable names 
+3) result is a new data frame 
+
+**5.2 filter rows**
+- allows you to subset observations base on their values 
+```{r}
+filter(flights, month == 1, day == 1)
+```
+
+- first argument is the name of data frame
+-second and subsequent arguments are expressions that filter the data frame 
+- filter(flights, month == 1, day == 1) will select flights from 1/1
+-dplyr will filter and return a new data set but they will never modify inputs
+- if you want to save the result you need to use assignment operations 
+```{r}
+(jan1 <- filter(flights, month == 1, day == 1))
+jan1
+#
+```
+- two () will print and save the variable 
+- need to know how to select observations you want using comparison operators 
+- R provides the standard suite: >, >=, <, <=, != (not equal), and == (equal).
+- use == and not = to test for equality
+-you can use near() instead of == 
+
+- filter are combined with and so every expression must be true in order for a row to be included in the output
+- & is “and”, | is “or”, and ! is not
+
+```{r}
+filter(flights, month == 11 | month == 12)
+```
+```{r}
+nov_dec <- filter(flights, month %in% c(11, 12))
+```
+
+- order of operations doesnt work like english 
+- x %in% y will select every row where x is one of the values in y
+- you can simplify complicated subsetting by dr morgan's law: !(x & y) is the same as !x | !y, and !(x | y) is the same as !x & !y
+```{r}
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+- finding flights that werent delayed by more than two hours 
+- make complicated multipart expressions in filter() explicit variables instead that is easier to check work 
+
+NA or missing values can make comparison tricky 
+- NA represents unknown value so missing values are contagious
+- almost any operation involving unknown value will be unknown 
+```{r}
+NA > 5
+#> [1] NA
+10 == NA
+#> [1] NA
+NA + 10
+#> [1] NA
+NA / 2
+#> [1] NA
+```
+if x and y are unknowns then they cannot be the same therefore x == y isnt good 
+- if you want to determine if a value is missing use is.na()
+- filter() only inlcudes rows where condition is TRUE, it excludes false and Na
+
+**exercises**
+
+
