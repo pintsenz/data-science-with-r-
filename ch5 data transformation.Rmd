@@ -85,5 +85,116 @@ if x and y are unknowns then they cannot be the same therefore x == y isnt good
 - filter() only inlcudes rows where condition is TRUE, it excludes false and Na
 
 **exercises**
+1) had an arrival delay two or more hours 
+use arr_delay 
+```{r}
+filter(flights, arr_delay >= 120)
+```
+the flights that flew to houston are those flights where the destination is either IAH or HOU
+-using %in% would be more compact and would scale to other airports 
+```{r}
+filter(flights, dest=="IAH"|dest=="HOU")
+```
+```{r}
+filter(flights, dest %in% c("IAH", "HOU"))
+```
 
+operated by united american or delta 
+- the column carrier indicates airline but uses codes that can be found in airline dataset 
+```{r}
+airlines
+```
+```{r}
+filter(flights, carrier %in% c("AA", "DL", "UA"))
+```
 
+departed in summer (july august september)
+```{r}
+filter(flights, month>=7, month<=9)
+```
+- %in% operator is an alternative if the : operator is used to specify integer range the expression is readable and compact
+```{r}
+filter(flights, month %in% 7:9)
+```
+
+arrived more than two hours late but didnt leave late 
+```{r}
+filter(flights, arr_delay>120, dep_delay<=0)
+```
+
+2) another useful dplyr filtering helper is between()
+- can be used to simplify operators 
+
+3)how many flights have a missing dep_time what other variables are missing 
+
+4) NA|TRUE is true because anything is true is true 
+is its false its false if its true its true 
+
+**5.3 arrange rows with arrange()**
+- works like filter but it changes the orders of the rows 
+- takes a data frame and set column names to order by
+```{r}
+arrange(flights, year, month, day)
+```
+
+- use desc() to recorder by column in descending order 
+```{r}
+arrange(flights, desc(dep_delay))
+```
+
+- missing values are always sorted at the end 
+
+**exercises**
+1) how can you use arrange() to sort all missing values to the start
+- arrange puts NA last and using desc() will not change that 
+- we can add indicator of whether the column has missing value then sort by missing indicator column 
+```{r}
+arrange(flights, desc(is.na(dep_time)), dep_time)
+```
+
+2) sort flights to find most delayed flighs and find those that left earliest 
+
+```{r}
+arrange(flights, desc(dep_delay))
+``` 
+- HA was the most delayed flight 
+
+```{r}
+arrange(flights, dep_delay)
+```
+- B6 departed earliest
+
+3) sort flights to find fastest flights 
+```{r}
+head(arrange(flights, air_time))
+```
+
+- head() is used to get the first rows of data and tail() for the last 
+
+**5.4 select columns with select()**
+- starts_with("abc"): matches names that begin with “abc”.
+
+--ends_with("xyz"): matches names that end with “xyz”.
+
+contains("ijk"): matches names that contain “ijk”.
+
+-matches("(.)\\1"): selects variables that match a regular expression. This one matches any variables that contain repeated characters. You’ll learn more about regular expressions in strings.
+
+-num_range("x", 1:3): matches x1, x2 and x3.
+- use rename() which is a variant of select 
+```{r}
+rename(flights, tail_num = tailnum)
+```
+
+- use everything() if you have handful of variables you want to move to start of the data 
+
+**exercises**
+
+2) what happens if you include the name of a variable many times in select
+- ignores duplication so they are only included once 
+
+3) one_of()?? 
+- selects variables with character vector rather than unquoted variable name arguements 
+- easier to generate character vectors with variable names 
+
+**5.5 add new variables with mutate()**
