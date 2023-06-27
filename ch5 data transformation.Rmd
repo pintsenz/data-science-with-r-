@@ -198,3 +198,26 @@ rename(flights, tail_num = tailnum)
 - easier to generate character vectors with variable names 
 
 **5.5 add new variables with mutate()**
+- mutate() always adds new columns at the end of data set 
+- easiest way to see all column is view()
+```{r}
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+- you can refer to columns you created by 
+```{r}
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+```
+- use transmute() if you only want to keep the new variables 
