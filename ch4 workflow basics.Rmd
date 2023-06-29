@@ -41,6 +41,7 @@ y <- seq(1,10, length.out=5)
 y
 #>
 
+
 ```
 
 -seq() will makes regular sequences of numbers
